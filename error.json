@@ -1,0 +1,14 @@
+{
+    "BotNotInVoiceChannel": ":x: Je ne suis pas connecté à un salon vocal",
+    "BotAlreadyInVoiceChannel": ":x: Je suis déja connecté à un salon vocal",
+    "BotOnPause": ":pause_button: Pause",
+    "BotOnStart": ":play_pause: Resume",
+
+    "UserNotInVoiceChannel" : ":x: Tu n'est pas connecté au salon vocal !",
+
+    "EmptyQueue": ":information_source: La file d'attente est vide",
+    "AddQueue": " a été ajouté à la file d'attente",
+    "StartQueue": ":arrow_right: En train de joué ",
+
+    "MusicSkip": ":fast_forward: Skip"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "vo01a",
+  "version": "1.0.0",
+  "description": "Assistant",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "discord.js-commando": "^0.12.0",
+    "node-opus": "^0.3.3",
+    "youtube-search": "^1.1.6",
+    "ytdl-core-discord": "^1.2.5"
+  }
+}
