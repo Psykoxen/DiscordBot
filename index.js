@@ -11,6 +11,7 @@ client.registry
 	.registerDefaultGroups()
 	.registerDefaultCommands()
 	.registerGroup('music','Music')
+	.registerGroup('gif','Gif')
 	.registerCommandsIn(path.join(__dirname, 'commands'))
 
 client.server = {
@@ -27,3 +28,5 @@ client.once('ready', () => {
 client.on('error' , (error) => console.error(error));
 
 client.login(process.env.TOKEN);
+// process.env.TOKEN
+// 'ODA2NTU4MjAwNTE3NzU0ODkx.YBrL3A.74-PTldlswHmv6PrrUGhktQ_1_E'

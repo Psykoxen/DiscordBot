@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { Command, CommandoMessage } = require("discord.js-commando");
-const { BotNotInVoiceChannel } = require('../../error.json')
+const { BotNotInVoiceChannel, EmptyQueue, OutQueue } = require('../../error.json')
 
 module.exports = class QueueCommand extends Command {
     constructor(client) {
@@ -40,10 +40,11 @@ module.exports = class QueueCommand extends Command {
         var totalPages = 1;
 
         var embed = new MessageEmbed()
-            .setTitle("File d'attente : ")
-            .setColor("BLUE")
+            .setTitle("File d'attente")
+            .setColor("#8229de")
             .addField('En train de jouer : ', server.currentVideo.title);
         
+            
         if (queueLength > 0) {
             var value = "";
 
@@ -52,7 +53,7 @@ module.exports = class QueueCommand extends Command {
             }
 
             if (page < 0 || (page) > totalPages ) {
-                return message.say(" :x: Cette page n'existe pas ><");
+                return message.say(OutQueue);
             }
 
             if ((queueLength - startingItem) < numberItems) {

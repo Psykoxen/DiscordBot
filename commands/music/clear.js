@@ -1,15 +1,15 @@
 const { Command, CommandoMessage } = require("discord.js-commando");
-const { UserNotInVoiceChannel, BotNotInVoiceChannel, EmptyQueue, MusicSkip } = require('../../error.json')
+const { UserNotInVoiceChannel, BotNotInVoiceChannel, EmptyQueue, CleanQueue } = require('../../error.json')
 const ytdl = require('ytdl-core-discord');
 
-module.exports = class SkipCommand extends Command {
+module.exports = class ClearCommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'skip',
-            aliases: ['s'],
+            name: 'clear',
+            aliases: ['c'],
             group: 'music',
-            memberName: 'skip',
-            description: 'Passe à la musique suivante'
+            memberName: 'clear',
+            description: "supprime la file d'attente"
         });
     }
 
@@ -29,15 +29,12 @@ module.exports = class SkipCommand extends Command {
         }
 
 
-        if (!server.queue[0]) {
-            server.currentVideo = {title: "", url: ""};
+        if (server.queue[0]) {
+            server.queue = [];
             server.connection.dispatcher.end();
+            return message.say(CleanQueue)
         }
-         
-        server.currentVideo = server.queue[0];
-        server.dispatcher = server.connection.play(await ytdl(server.currentVideo.url, {filter: 'audioonly'}), {type: 'opus' } );
-        server.queue.shift();
 
-        return message.say(MusicSkip);
+        return message.say(EmptyQueue);
     }
 }

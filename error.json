@@ -6,9 +6,14 @@
 
     "UserNotInVoiceChannel" : ":x: Tu n'est pas connecté au salon vocal !",
 
+    "NotFound": ":o2: Sorry je n'ai rien trouvé",
+
     "EmptyQueue": ":information_source: La file d'attente est vide",
     "AddQueue": " a été ajouté à la file d'attente",
     "StartQueue": ":arrow_right: En train de joué ",
+    "NeadQueue": ":hourglass: La file d'attente est vide",
+    "OutQueue": ":x: Cette page n'existe pas ",
+    "CleanQueue": ":zero: File d'attente vidé",
 
     "MusicSkip": ":fast_forward: Skip"
 }

@@ -1,6 +1,6 @@
 const {VoiceConnection} = require('discord.js');
 const { Command, CommandoMessage } = require("discord.js-commando");
-const { UserNotInVoiceChannel, AddQueue, StartQueue } = require('../../error.json');
+const { UserNotInVoiceChannel, AddQueue, StartQueue, NeadQueue, NotFound } = require('../../error.json');
 const { key } = require('../../config.json');
 const ytdl = require('ytdl-core-discord');
 const ytsr = require('youtube-search');
@@ -39,7 +39,7 @@ module.exports = class PlayCommand extends Command {
             
             ytsr(query, {key: key, maxResults: 1, type: 'video'}).then((results) => {
                 if (results.results[0]) {
-                    const foundVideo = {title: results.results[0].title, url:results.results[0].link};
+                    const foundVideo = {title: results.results[0].title, url: results.results[0].link};
 
                     if (server.currentVideo.url != "") {
                         server.queue.push({ title:results.results[0].title , url: results.results[0].link});
@@ -49,7 +49,11 @@ module.exports = class PlayCommand extends Command {
                     this.runVideo(message,connection);
                     
                 }
+                if (!results.results[0]) {
+                    return message.say(NotFound);
+                }
             });
+
         });
     }
     /**
@@ -64,12 +68,15 @@ module.exports = class PlayCommand extends Command {
         server.queue.shift();
         server.dispatcher = dispatcher;
         server.connection = connection;
-
+        
         dispatcher.on('finish', () => {
             if (server.queue[0]) {
                 server.currentVideo = server.queue[0];
-                return this.runVideo(message, connection, server.currentVideo.url);
+                return this.runVideo(message, connection);
             }
+            server.currentVideo = {title: "", url: ""};
+            return message.say(NeadQueue);
+                   
         });
         return message.say(StartQueue + "`" + server.currentVideo.title + "`");
     }
