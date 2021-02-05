@@ -14,6 +14,10 @@
     "NeadQueue": ":hourglass: La file d'attente est vide",
     "OutQueue": ":x: Cette page n'existe pas ",
     "CleanQueue": ":zero: File d'attente vidé",
+    "BadQueue": ":x: le titre n'est pas dans la file d'attente",
+
+    "RepeatOn": ":repeat: Mode repeat activé",
+    "RepeatOff": ":twisted_rightwards_arrows:  Mode repeat désactivé",
 
     "MusicSkip": ":fast_forward: Skip"
 }

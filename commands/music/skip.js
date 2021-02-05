@@ -1,5 +1,5 @@
 const { Command, CommandoMessage } = require("discord.js-commando");
-const { UserNotInVoiceChannel, BotNotInVoiceChannel, EmptyQueue, MusicSkip } = require('../../error.json')
+const { UserNotInVoiceChannel, BotNotInVoiceChannel, StartQueue, MusicSkip } = require('../../error.json')
 const ytdl = require('ytdl-core-discord');
 
 module.exports = class SkipCommand extends Command {
@@ -33,11 +33,14 @@ module.exports = class SkipCommand extends Command {
             server.currentVideo = {title: "", url: ""};
             server.connection.dispatcher.end();
         }
-         
+        if (server.repeat == true) {
+            server.queue.push({ title:server.currentVideo.title , url: server.currentVideo.url})
+        } 
         server.currentVideo = server.queue[0];
         server.dispatcher = server.connection.play(await ytdl(server.currentVideo.url, {filter: 'audioonly'}), {type: 'opus' } );
         server.queue.shift();
 
-        return message.say(MusicSkip);
+        message.say(MusicSkip);
+        return message.say(StartQueue + "`" + server.currentVideo.title + "`");
     }
 }

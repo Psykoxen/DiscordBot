@@ -1,22 +1,17 @@
 const { Command, CommandoMessage } = require("discord.js-commando");
-const { UserNotInVoiceChannel, BotNotInVoiceChannel, EmptyQueue, CleanQueue } = require('../../error.json')
+const { UserNotInVoiceChannel, BotNotInVoiceChannel, RepeatOn, RepeatOff } = require('../../error.json')
 const ytdl = require('ytdl-core-discord');
 
-module.exports = class ClearCommand extends Command {
+module.exports = class RepeatCommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'clear',
-            aliases: ['c'],
+            name: 'repeat',
+            aliases: ['r'],
             group: 'music',
-            memberName: 'clear',
-            description: "supprime la file d'attente"
+            memberName: 'repeat',
+            description: "boucle infini de la liste d'attente"
         });
     }
-
-    /**
-     * 
-     * @param {CommandoMessage} message 
-     */
     async run(message) {
         const voiceChannel = message.member.voice.channel;
         const server = message.client.server;
@@ -27,15 +22,13 @@ module.exports = class ClearCommand extends Command {
         if  (!message.client.voice.connections.first()) {
             return message.say(BotNotInVoiceChannel);
         }
-
-
-        if (server.queue[0]) {
-            server.queue = [];
-            server.connection.dispatcher.end();
+        if (server.repeat == true) {
             server.repeat = false;
-            return message.say(CleanQueue);
+            return message.say(RepeatOff);
         }
-
-        return message.say(EmptyQueue);
+        server.repeat = true;
+        return message.say(RepeatOn);
     }
 }
+
+

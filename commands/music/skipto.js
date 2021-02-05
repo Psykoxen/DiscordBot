@@ -46,6 +46,7 @@ module.exports = class SkipToCommand extends Command {
         server.dispatcher = server.connection.play(await ytdl(server.currentVideo.url, {filter: 'audioonly'}), {type: 'opus' } );
         server.queue.splice(index, 1);
 
-        return message.say(MusicSkip);
+       message.say(MusicSkip);
+       return message.say(StartQueue + "`" + server.currentVideo.title + "`");
     }
 }

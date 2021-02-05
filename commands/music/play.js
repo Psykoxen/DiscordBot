@@ -40,10 +40,9 @@ module.exports = class PlayCommand extends Command {
             ytsr(query, {key: key, maxResults: 1, type: 'video'}).then((results) => {
                 if (results.results[0]) {
                     const foundVideo = {title: results.results[0].title, url: results.results[0].link};
-
                     if (server.currentVideo.url != "") {
                         server.queue.push({ title:results.results[0].title , url: results.results[0].link});
-                        return message.say(':repeat_one: ' + "`" +foundVideo.title + "`" + AddQueue);                      
+                        return message.say(':up: ' + "`" +foundVideo.title + "`" + AddQueue);                      
                     }                 
                     server.currentVideo = foundVideo;
                     this.runVideo(message,connection);
@@ -70,7 +69,10 @@ module.exports = class PlayCommand extends Command {
         server.connection = connection;
         
         dispatcher.on('finish', () => {
-            if (server.queue[0]) {
+            if (server.repeat == true) {
+                server.queue.push({ title:server.currentVideo.title , url: server.currentVideo.url})
+            }     
+            if (server.queue[0]) {        
                 server.currentVideo = server.queue[0];
                 return this.runVideo(message, connection);
             }

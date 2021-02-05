@@ -39,8 +39,14 @@ module.exports = class QueueCommand extends Command {
         var itemPage = startingItem + numberItems;
         var totalPages = 1;
 
+        if (server.repeat == true)  {
+            var repeat = ':white_check_mark:';
+        } else {
+            var repeat = ':x:';
+        }  
+        
         var embed = new MessageEmbed()
-            .setTitle("File d'attente")
+            .setTitle("File d'attente                 Repeat " + repeat)
             .setColor("#8229de")
             .addField('En train de jouer : ', server.currentVideo.title);
         

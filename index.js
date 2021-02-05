@@ -16,6 +16,7 @@ client.registry
 
 client.server = {
 	queue: [],
+	repeat: false,
 	currentVideo: {title: "", url: ""},
 	dispatcher: null,
 	connection: null
@@ -27,5 +28,6 @@ client.once('ready', () => {
 
 client.on('error' , (error) => console.error(error));
 
-client.login(process.env.TOKEN);
+client.login('ODA2NTU4MjAwNTE3NzU0ODkx.YBrL3A.YDSofj3TdAusv5lAPCdEneUPEGo');
 // process.env.TOKEN
+// 'ODA2NTU4MjAwNTE3NzU0ODkx.YBrL3A.YDSofj3TdAusv5lAPCdEneUPEGo'
