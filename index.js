@@ -31,5 +31,5 @@ client.once('ready', () => {
 
 client.on('error' , (error) => console.error(error));
 
-client.login('ODA2NTU4MjAwNTE3NzU0ODkx.YBrL3A.7nlXe7IXBHRo0L9m5gPEGujUyhU');
+client.login(process.env.TOKEN);
 // process.env.TOKEN
