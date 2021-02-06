@@ -30,9 +30,13 @@ module.exports = class SkipCommand extends Command {
 
 
         if (!server.queue[0]) {
+            if (server.currentVideo) {
+                server.connection.dispatcher.end();
+            }           
             server.currentVideo = {title: "", url: ""};
-            server.connection.dispatcher.end();
+            return message.say(MusicSkip)        
         }
+
         if (server.repeat == true) {
             server.queue.push({ title:server.currentVideo.title , url: server.currentVideo.url})
         } 

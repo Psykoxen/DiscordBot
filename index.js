@@ -1,4 +1,5 @@
 const {CommandoClient} = require('discord.js-commando');
+const { type } = require('os');
 const path = require('path');
 
 const client = new CommandoClient({
@@ -24,9 +25,11 @@ client.server = {
 
 client.once('ready', () => {
 	console.log(`Connecté en tant que ${client.user.tag} - (${client.user.id})`);
+	client.user.setStatus('dnd');
+	client.user.setActivity('Comment fonctionner', {type: 'LISTENING'});
 })
 
 client.on('error' , (error) => console.error(error));
 
-client.login(process.env.TOKEN);
+client.login('ODA2NTU4MjAwNTE3NzU0ODkx.YBrL3A.7nlXe7IXBHRo0L9m5gPEGujUyhU');
 // process.env.TOKEN
