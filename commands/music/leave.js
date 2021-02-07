@@ -19,6 +19,7 @@ module.exports = class LeaveCommand extends Command {
     async run(message) {
         const voiceChannel = message.member.voice.channel;
         const server = message.client.server;
+        
         if (!voiceChannel) {
             return message.say(UserNotInVoiceChannel);
         }

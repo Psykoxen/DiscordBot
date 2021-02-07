@@ -46,6 +46,7 @@ module.exports = class LyricsCommand extends Command {
             titre = queue.join('');
             author = "";
         }
+        
         let lyrics = await lyricsFinder(author, titre) || "Not Found!";
         if (lyrics.length < 2000) {
             return message.say(lyrics);  

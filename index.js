@@ -11,8 +11,9 @@ client.registry
 	.registerDefaultTypes()
 	.registerDefaultGroups()
 	.registerDefaultCommands()
-	.registerGroup('music','Music')
 	.registerGroup('gif','Gif')
+	.registerGroup('music','Music')
+	.registerGroup('poll ','Sondage')
 	.registerCommandsIn(path.join(__dirname, 'commands'))
 
 client.server = {

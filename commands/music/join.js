@@ -19,6 +19,7 @@ module.exports = class JoinCommand extends Command {
      */
     async run(message) {
         const voiceChannel = message.member.voice.channel;
+        
         if (!voiceChannel) {
             return message.say(UserNotInVoiceChannel);
         }

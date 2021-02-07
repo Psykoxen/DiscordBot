@@ -20,6 +20,7 @@ module.exports = class PauseCommand extends Command {
         /**
          * @type StreamDispatcher
          */
+        
         if (!message.member.voice.channel) {
             return message.say(UserNotInVoiceChannel);
         }

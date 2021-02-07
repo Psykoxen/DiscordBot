@@ -28,6 +28,7 @@ module.exports = class QueueCommand extends Command {
      */
     async run(message, { page }) {
         const server = message.client.server;
+        
         if  (!message.client.voice.connections.first()) {
             return message.say(BotNotInVoiceChannel);
         }

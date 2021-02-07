@@ -1,5 +1,5 @@
 const { Command, CommandoMessage } = require("discord.js-commando");
-const { UserNotInVoiceChannel, BotNotInVoiceChannel, BadQueue, MusicSkip } = require('../../error.json')
+const { UserNotInVoiceChannel, BotNotInVoiceChannel, BadQueue, MusicSkip, StartQueue } = require('../../error.json')
 const ytdl = require('ytdl-core-discord');
 
 module.exports = class SkipToCommand extends Command {
@@ -27,7 +27,7 @@ module.exports = class SkipToCommand extends Command {
     async run(message, { index }) {
         const voiceChannel = message.member.voice.channel;
         const server = message.client.server;
-
+        
         if (!voiceChannel) {
             return message.say(UserNotInVoiceChannel);
         }

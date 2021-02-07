@@ -17,6 +17,7 @@ module.exports = class ResumeCommand extends Command {
      * @param {CommandoMessage} message 
      */
     async run(message) {
+        
         if (!message.member.voice.channel) {
             return message.say(UserNotInVoiceChannel);
         }

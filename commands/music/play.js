@@ -38,6 +38,7 @@ module.exports = class PlayCommand extends Command {
         await message.member.voice.channel.join().then((connection) => {
             
             ytsr(query, {key: key, maxResults: 1, type: 'video'}).then((results) => {
+                
                 if (results.results[0]) {
                     const foundVideo = {title: results.results[0].title, url: results.results[0].link};
                     if (server.currentVideo.url != "") {
@@ -61,6 +62,7 @@ module.exports = class PlayCommand extends Command {
      * @param {VoiceConnection} connection 
      */
     async runVideo(message, connection) {
+        const voiceChannel = message.member.voice.channel;
         const server = message.client.server;
         const dispatcher = connection.play( await ytdl(server.currentVideo.url, {filter: 'audioonly'}), {type: 'opus' } );
         
@@ -77,6 +79,9 @@ module.exports = class PlayCommand extends Command {
                 return this.runVideo(message, connection);
             }
             server.currentVideo = {title: "", url: ""};
+            if (!message.member.voice.channel) {
+                return voiceChannel.leave();
+            }
             return message.say(NeadQueue);
                    
         });
