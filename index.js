@@ -13,7 +13,7 @@ client.registry
 	.registerDefaultCommands()
 	.registerGroup('gif','Gif')
 	.registerGroup('music','Music')
-	.registerGroup('poll ','Sondage')
+	.registerGroup('brawlstar','BrawlStar')
 	.registerCommandsIn(path.join(__dirname, 'commands'))
 
 client.server = {
@@ -27,7 +27,7 @@ client.server = {
 client.once('ready', () => {
 	console.log(`Connecté en tant que ${client.user.tag} - (${client.user.id})`);
 	client.user.setStatus('dnd');
-	client.user.setActivity('Comment fonctionner', {type: 'LISTENING'});
+	client.user.setActivity('comment fonctionner', {type: 'LISTENING'});
 })
 
 client.on('error' , (error) => console.error(error));
