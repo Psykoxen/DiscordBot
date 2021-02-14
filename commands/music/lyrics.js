@@ -47,7 +47,7 @@ module.exports = class LyricsCommand extends Command {
             author = "";
         }
         
-        let lyrics = await lyricsFinder(author, titre) || "Not Found!";
+        let lyrics = await lyricsFinder(author, titre) || "Aucun résultat trouvé pour cette chanson";
         if (lyrics.length < 2000) {
             return message.say(lyrics);  
             }
