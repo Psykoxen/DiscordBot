@@ -30,22 +30,27 @@ module.exports = class PlayCommand extends Command {
      */
     async run(message, { query }) {
         const server = message.client.server
-        
-        if (!message.member.voice.channel) {
+        const voiceChannel = message.member.voice.channel;
+        if (!voiceChannel) {
             return message.say(UserNotInVoiceChannel);
         }
-
-        await message.member.voice.channel.join().then((connection) => {
+        if  (!server.currentVideo[voiceChannel.id]) {
+            server.currentVideo[voiceChannel.id] = {title: "", url: ""};
+            server.queue[voiceChannel.id] = [];
+        }
+        
+        await voiceChannel.join().then((connection) => {
             
             ytsr(query, {key: key, maxResults: 1, type: 'video'}).then((results) => {
                 
                 if (results.results[0]) {
                     const foundVideo = {title: results.results[0].title, url: results.results[0].link};
-                    if (server.currentVideo.url != "") {
-                        server.queue.push({ title:results.results[0].title , url: results.results[0].link});
+                    if (server.currentVideo[voiceChannel.id].url != "") {
+                        server.queue[voiceChannel.id].push({ title:results.results[0].title , url: results.results[0].link});
+                        console.log(server.queue)
                         return message.say(':up: ' + "`" +foundVideo.title + "`" + AddQueue);                      
                     }                 
-                    server.currentVideo = foundVideo;
+                    server.currentVideo[voiceChannel.id] = foundVideo;
                     this.runVideo(message,connection);
                     
                 }
@@ -64,27 +69,28 @@ module.exports = class PlayCommand extends Command {
     async runVideo(message, connection) {
         const voiceChannel = message.member.voice.channel;
         const server = message.client.server;
-        const dispatcher = connection.play( await ytdl(server.currentVideo.url, {filter: 'audioonly'}), {type: 'opus' } );
+
+        const dispatcher = connection.play( await ytdl(server.currentVideo[voiceChannel.id].url, {filter: 'audioonly'}), {type: 'opus' } );
         
-        server.queue.shift();
-        server.dispatcher = dispatcher;
-        server.connection = connection;
-        
-        dispatcher.on('finish', () => {
+        server.queue[voiceChannel.id].shift();
+        server.dispatcher[voiceChannel.id] = dispatcher;
+        server.connection[voiceChannel.id] = connection;
+        server.dispatcher[voiceChannel.id].on('finish', () => {
             if (server.repeat == true) {
-                server.queue.push({ title:server.currentVideo.title , url: server.currentVideo.url})
+                server.queue[voiceChannel.id].push({ title:server.currentVideo[voiceChannel.id].title , url: server.currentVideo[voiceChannel.id].url})
             }     
-            if (server.queue[0]) {        
-                server.currentVideo = server.queue[0];
+            if (server.queue[voiceChannel.id][0]) {        
+                server.currentVideo[voiceChannel.id] = server.queue[voiceChannel.id][0];
                 return this.runVideo(message, connection);
             }
-            server.currentVideo = {title: "", url: ""};
-            if (!message.member.voice.channel) {
+            server.currentVideo[voiceChannel.id] = {title: "", url: ""};
+            server.queue[voiceChannel.id] = [];       
+            if (!voiceChannel) {
                 return voiceChannel.leave();
             }
             return message.say(NeadQueue);
                    
         });
-        return message.say(StartQueue + "`" + server.currentVideo.title + "`");
+        return message.say(StartQueue + "`" + server.currentVideo[voiceChannel.id].title + "`");
     }
 }

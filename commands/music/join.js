@@ -19,14 +19,16 @@ module.exports = class JoinCommand extends Command {
      */
     async run(message) {
         const voiceChannel = message.member.voice.channel;
-        
+        const server = message.client.server;
+        console.log(voiceChannel);
         if (!voiceChannel) {
             return message.say(UserNotInVoiceChannel);
         }
         if  (message.client.voice.connections.first()) {
             return message.say(BotAlreadyInVoiceChannel);
         }
-
+        server.currentVideo[voiceChannel.id] = {title: "", url: ""};
+        server.queue[voiceChannel.id] = [];
         await voiceChannel.join();
     }
 }

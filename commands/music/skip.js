@@ -12,7 +12,6 @@ module.exports = class SkipCommand extends Command {
             description: 'Passe à la musique suivante'
         });
     }
-
     /**
      * 
      * @param {CommandoMessage} message 
@@ -27,24 +26,28 @@ module.exports = class SkipCommand extends Command {
         if  (!message.client.voice.connections.first()) {
             return message.say(BotNotInVoiceChannel);
         }
-
-
-        if (!server.queue[0]) {
-            if (server.currentVideo) {
-                server.connection.dispatcher.end();
+        if (!server.queue[voiceChannel.id][0]) {
+            console.log('OK')
+            if (server.currentVideo[voiceChannel.id] != {title: "", url: ""}) {
+                console.log('OK 2')
+                console.log(server.connection)
+                console.log(server.connection[voiceChannel.id].dispatcher)
+                server.connection[voiceChannel.id].dispatcher.end();
+                console.log('OK 3')
             }           
-            server.currentVideo = {title: "", url: ""};
+            server.currentVideo[voiceChannel.id] = {title: "", url: ""};
+            console.log('OK 4')
             return message.say(MusicSkip)        
         }
 
         if (server.repeat == true) {
-            server.queue.push({ title:server.currentVideo.title , url: server.currentVideo.url})
+            server.queue[voiceChannel.id].push({ title:server.currentVideo[voiceChannel.id].title , url: server.currentVideo[voiceChannel.id].url})
         } 
-        server.currentVideo = server.queue[0];
-        server.dispatcher = server.connection.play(await ytdl(server.currentVideo.url, {filter: 'audioonly'}), {type: 'opus' } );
-        server.queue.shift();
+        server.currentVideo[voiceChannel.id] = server.queue[voiceChannel.id][0];
+        server.dispatcher[voiceChannel.id] = server.connection[voiceChannel.id].play(await ytdl(server.currentVideo[voiceChannel.id].url, {filter: 'audioonly'}), {type: 'opus' } );
+        server.queue[voiceChannel.id].shift();
 
         message.say(MusicSkip);
-        return message.say(StartQueue + "`" + server.currentVideo.title + "`");
+        return message.say(StartQueue + "`" + server.currentVideo[voiceChannel.id].title + "`");
     }
 }

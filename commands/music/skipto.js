@@ -37,16 +37,17 @@ module.exports = class SkipToCommand extends Command {
 
         index--;
 
-        if (!server.queue[index]) {
-            server.currentVideo = {title: "", url: ""};
+        if (!server.queue[voiceChannel.id][index]) {
+            server.currentVideo[voiceChannel.id] = {title: "", url: ""};
             return message.say(BadQueue);
         }
     
-        server.currentVideo = server.queue[index];
-        server.dispatcher = server.connection.play(await ytdl(server.currentVideo.url, {filter: 'audioonly'}), {type: 'opus' } );
-        server.queue.splice(index, 1);
+        server.currentVideo[voiceChannel.id] = server.queue[voiceChannel.id][index];
+        console.log(server.currentVideo)
+        server.dispatcher[voiceChannel.id] = server.connection[voiceChannel.id].play(await ytdl(server.currentVideo[voiceChannel.id].url, {filter: 'audioonly'}), {type: 'opus' } );
+        server.queue[voiceChannel.id].splice(index, 1);
 
        message.say(MusicSkip);
-       return message.say(StartQueue + "`" + server.currentVideo.title + "`");
+       return message.say(StartQueue + "`" + server.currentVideo[voiceChannel.id].title + "`");
     }
 }

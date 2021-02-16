@@ -19,6 +19,7 @@ module.exports = class LyricsCommand extends Command {
      * @param {String} query
      */
     async run(message) {
+        const voiceChannel = message.member.voice.channel;
         const server = message.client.server;
         if  (!message.client.voice.connections.first()) {
             return message.say(BotNotInVoiceChannel);
@@ -28,8 +29,8 @@ module.exports = class LyricsCommand extends Command {
         var queue = [];
         var lettre;
 
-        for (var i = 0; i < (server.currentVideo.title.length); i++) {
-            lettre = server.currentVideo.title[i];
+        for (var i = 0; i < (server.currentVideo[voiceChannel.id].title.length); i++) {
+            lettre = server.currentVideo[voiceChannel.id].title[i];
             if (lettre == '-' || lettre == '[' || lettre == '(') {
                 if (lettre == '-') {
                     author = queue.join('');

@@ -29,9 +29,9 @@ module.exports = class ClearCommand extends Command {
         }
 
 
-        if (server.queue[0]) {
-            server.queue = [];
-            server.connection.dispatcher.end();
+        if (server.queue[voiceChannel.id][0]) {
+            server.queue[voiceChannel.id] = [];
+            server.connection[voiceChannel.id].dispatcher.end();
             server.repeat = false;
             return message.say(CleanQueue);
         }

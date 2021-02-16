@@ -27,6 +27,7 @@ module.exports = class QueueCommand extends Command {
      * @param {Number} page
      */
     async run(message, { page }) {
+        const voiceChannel = message.member.voice.channel;
         const server = message.client.server;
         
         if  (!message.client.voice.connections.first()) {
@@ -35,7 +36,7 @@ module.exports = class QueueCommand extends Command {
 
         const numberItems = 10;
         const startingItem = (page - 1) * numberItems;
-        const queueLength = server.queue.length;
+        const queueLength = server.queue[voiceChannel.id].length;
 
         var itemPage = startingItem + numberItems;
         var totalPages = 1;
@@ -49,7 +50,7 @@ module.exports = class QueueCommand extends Command {
         var embed = new MessageEmbed()
             .setTitle("File d'attente                 Repeat " + repeat)
             .setColor("#8229de")
-            .addField('En train de jouer : ', server.currentVideo.title);
+            .addField('En train de jouer : ', server.currentVideo[voiceChannel.id].title);
         
             
         if (queueLength > 0) {
@@ -68,7 +69,7 @@ module.exports = class QueueCommand extends Command {
             }
 
             for (let i = startingItem; i < itemPage; i++) {
-                const video = server.queue[i];
+                const video = server.queue[voiceChannel.id][i];
                 value +=  "`" + (i+1) + ". `" + video.title + "\n";
             }
             embed.addField("A venir :", value);
