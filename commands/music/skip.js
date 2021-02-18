@@ -27,20 +27,14 @@ module.exports = class SkipCommand extends Command {
             return message.say(BotNotInVoiceChannel);
         }
         if (!server.queue[voiceChannel.id][0]) {
-            console.log('OK')
             if (server.currentVideo[voiceChannel.id] != {title: "", url: ""}) {
-                console.log('OK 2')
-                console.log(server.connection)
-                console.log(server.connection[voiceChannel.id].dispatcher)
                 server.connection[voiceChannel.id].dispatcher.end();
-                console.log('OK 3')
             }           
             server.currentVideo[voiceChannel.id] = {title: "", url: ""};
-            console.log('OK 4')
             return message.say(MusicSkip)        
         }
 
-        if (server.repeat == true) {
+        if (server.repeat[voiceChannel.id] == true) {
             server.queue[voiceChannel.id].push({ title:server.currentVideo[voiceChannel.id].title , url: server.currentVideo[voiceChannel.id].url})
         } 
         server.currentVideo[voiceChannel.id] = server.queue[voiceChannel.id][0];

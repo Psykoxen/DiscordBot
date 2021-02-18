@@ -18,11 +18,12 @@ client.registry
 	.registerCommandsIn(path.join(__dirname, 'commands'))
 
 client.server = {
-	queue: [],
-	repeat: false,
-	currentVideo: {title: "", url: ""},
-	dispatcher: null,
-	connection: null
+	queue: {},
+	repeat: {},
+	currentVideo: {},
+	dispatcher: {},
+	connection: {},
+
 }
 
 client.once('ready', () => {

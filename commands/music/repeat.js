@@ -22,11 +22,11 @@ module.exports = class RepeatCommand extends Command {
         if  (!message.client.voice.connections.first()) {
             return message.say(BotNotInVoiceChannel);
         }
-        if (server.repeat == true) {
-            server.repeat = false;
+        if (server.repeat[voiceChannel.id] == true) {
+            server.repeat[voiceChannel.id] = false;
             return message.say(RepeatOff);
         }
-        server.repeat = true;
+        server.repeat[voiceChannel.id] = true;
         return message.say(RepeatOn);
     }
 }

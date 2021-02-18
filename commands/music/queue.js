@@ -41,7 +41,7 @@ module.exports = class QueueCommand extends Command {
         var itemPage = startingItem + numberItems;
         var totalPages = 1;
 
-        if (server.repeat == true)  {
+        if (server.repeat[voiceChannel.id] == true)  {
             var repeat = ':white_check_mark:';
         } else {
             var repeat = ':x:';

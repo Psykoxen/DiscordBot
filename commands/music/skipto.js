@@ -43,7 +43,7 @@ module.exports = class SkipToCommand extends Command {
         }
     
         server.currentVideo[voiceChannel.id] = server.queue[voiceChannel.id][index];
-        console.log(server.currentVideo)
+
         server.dispatcher[voiceChannel.id] = server.connection[voiceChannel.id].play(await ytdl(server.currentVideo[voiceChannel.id].url, {filter: 'audioonly'}), {type: 'opus' } );
         server.queue[voiceChannel.id].splice(index, 1);
 

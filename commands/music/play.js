@@ -37,6 +37,7 @@ module.exports = class PlayCommand extends Command {
         if  (!server.currentVideo[voiceChannel.id]) {
             server.currentVideo[voiceChannel.id] = {title: "", url: ""};
             server.queue[voiceChannel.id] = [];
+            server.repeat[voiceChannel.id] = false;
         }
         
         await voiceChannel.join().then((connection) => {
@@ -47,7 +48,6 @@ module.exports = class PlayCommand extends Command {
                     const foundVideo = {title: results.results[0].title, url: results.results[0].link};
                     if (server.currentVideo[voiceChannel.id].url != "") {
                         server.queue[voiceChannel.id].push({ title:results.results[0].title , url: results.results[0].link});
-                        console.log(server.queue)
                         return message.say(':up: ' + "`" +foundVideo.title + "`" + AddQueue);                      
                     }                 
                     server.currentVideo[voiceChannel.id] = foundVideo;
@@ -76,7 +76,7 @@ module.exports = class PlayCommand extends Command {
         server.dispatcher[voiceChannel.id] = dispatcher;
         server.connection[voiceChannel.id] = connection;
         server.dispatcher[voiceChannel.id].on('finish', () => {
-            if (server.repeat == true) {
+            if (server.repeat[voiceChannel.id] == true) {
                 server.queue[voiceChannel.id].push({ title:server.currentVideo[voiceChannel.id].title , url: server.currentVideo[voiceChannel.id].url})
             }     
             if (server.queue[voiceChannel.id][0]) {        
