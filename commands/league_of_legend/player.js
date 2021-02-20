@@ -1,5 +1,5 @@
 const { Command, CommandoMessage } = require("discord.js-commando");
-const lol = require("lol-js");
+//const lol = require("lol-stats-api-module-master");
 const { lolAPI } = require('../../config.json');
 module.exports = class LOLPlayerCommand extends Command {
     constructor(client) {
