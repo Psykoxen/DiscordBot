@@ -26,9 +26,9 @@ module.exports = class LeaveCommand extends Command {
         if  (!message.client.voice.connections.first()) {
             return message.say(BotNotInVoiceChannel);
         }
-        if (server.currentVideo[voiceChannel.id] != {title: "", url: ""}) {
+        if (server.currentVideo[voiceChannel.id].url = '' ) {
             server.connection[voiceChannel.id].dispatcher.end();
-            server.currentVideo[voiceChannel.id] = {title: "", url: ""};
+            server.currentVideo[voiceChannel.id] = {title: '', url: ''};
         }
         server.queue[voiceChannel.id] = [];  
         server.repeat = false;

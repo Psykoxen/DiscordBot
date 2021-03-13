@@ -33,7 +33,10 @@ module.exports = class QueueCommand extends Command {
         if  (!message.client.voice.connections.first()) {
             return message.say(BotNotInVoiceChannel);
         }
-
+        console.log(server.queue[voiceChannel.id])
+        if (!server.queue[voiceChannel.id][0]){
+            return message.say(EmptyQueue);
+        }
         const numberItems = 10;
         const startingItem = (page - 1) * numberItems;
         const queueLength = server.queue[voiceChannel.id].length;
