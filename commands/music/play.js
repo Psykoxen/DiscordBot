@@ -82,9 +82,10 @@ module.exports = class PlayCommand extends Command {
             if (server.queue[voiceChannel.id][0]) {        
                 server.currentVideo[voiceChannel.id] = server.queue[voiceChannel.id][0];
                 return this.runVideo(message, connection);
+            }else{
+                server.currentVideo[voiceChannel.id] = {title: "", url: ""};
+                server.queue[voiceChannel.id] = [];
             }
-            server.currentVideo[voiceChannel.id] = {title: "", url: ""};
-            server.queue[voiceChannel.id] = [];       
             if (!voiceChannel) {
                 return voiceChannel.leave();
             }

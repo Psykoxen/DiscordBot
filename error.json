@@ -19,5 +19,7 @@
     "RepeatOn": ":repeat: Mode repeat activé",
     "RepeatOff": ":twisted_rightwards_arrows:  Mode repeat désactivé",
 
-    "MusicSkip": ":fast_forward: Skip"
+    "MusicSkip": ":fast_forward: Skip",
+
+    "MusicSuppr": ":fast_forward: Musique supprimée"
 }
