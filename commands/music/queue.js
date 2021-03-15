@@ -33,8 +33,8 @@ module.exports = class QueueCommand extends Command {
         if  (!message.client.voice.connections.first()) {
             return message.say(BotNotInVoiceChannel);
         }
-        console.log(server.queue[voiceChannel.id])
-        if (!server.queue[voiceChannel.id][0]){
+
+        if (server.currentVideo[voiceChannel.id].url == ''){
             return message.say(EmptyQueue);
         }
         const numberItems = 10;
@@ -55,6 +55,9 @@ module.exports = class QueueCommand extends Command {
             .setColor("#8229de")
             .addField('En train de jouer : ', server.currentVideo[voiceChannel.id].title);
         
+        if (!server.queue[voiceChannel.id][0]){
+            embed.addField("A venir :",EmptyQueue);
+        }
             
         if (queueLength > 0) {
             var value = "";
