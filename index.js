@@ -16,6 +16,7 @@ client.registry
 	.registerGroup('brawlstar','BrawlStar')
 	.registerGroup('league_of_legend','League Of Legend')
 	.registerGroup('info','Information')
+	.registerGroup('minecraft','Minecraft')
 	.registerCommandsIn(path.join(__dirname, 'commands'))
 
 client.server = {
