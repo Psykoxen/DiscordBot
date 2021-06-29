@@ -72,9 +72,9 @@ module.exports = class PlayCommand extends Command {
 
         const dispatcher = connection.play( await ytdl(server.currentVideo[voiceChannel.id].url, {filter: 'audioonly'}), {type: 'opus' } );
         
+        console.log(connection)
         server.queue[voiceChannel.id].shift();
         server.dispatcher[voiceChannel.id] = dispatcher;
-        server.connection[voiceChannel.id] = connection;
         server.dispatcher[voiceChannel.id].on('finish', () => {
             if (server.repeat[voiceChannel.id] == true) {
                 server.queue[voiceChannel.id].push({ title:server.currentVideo[voiceChannel.id].title , url: server.currentVideo[voiceChannel.id].url})
