@@ -22,7 +22,7 @@ module.exports = class PlayCommand extends Command {
             ]
         });
     }
-
+    
     /**
      * 
      * @param {CommandoMessage} message 
