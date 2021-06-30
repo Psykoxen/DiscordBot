@@ -26,8 +26,13 @@ module.exports = class SkipCommand extends Command {
         if  (!message.client.voice.connections.first()) {
             return message.say(BotNotInVoiceChannel);
         }
+        console.log(server.queue[voiceChannel.id][0])
         if (!server.queue[voiceChannel.id][0]) {
-            if (!server.currentVideo[voiceChannel.id].url) {
+            console.log("True")
+            console.log(server.currentVideo[voiceChannel.id].url)
+            console.log(!server.currentVideo[voiceChannel.id].url)
+            if (server.currentVideo[voiceChannel.id].url) {
+                console.log("True")
                 server.connection[voiceChannel.id].dispatcher.end();
             }           
             server.currentVideo[voiceChannel.id] = {title: "", url: ""};

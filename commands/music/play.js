@@ -75,6 +75,9 @@ module.exports = class PlayCommand extends Command {
         console.log(connection)
         server.queue[voiceChannel.id].shift();
         server.dispatcher[voiceChannel.id] = dispatcher;
+        server.connection[voiceChannel.id] = connection;
+        console.log(server.dispatcher);
+        console.log(server.connection);
         server.dispatcher[voiceChannel.id].on('finish', () => {
             if (server.repeat[voiceChannel.id] == true) {
                 server.queue[voiceChannel.id].push({ title:server.currentVideo[voiceChannel.id].title , url: server.currentVideo[voiceChannel.id].url})
