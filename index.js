@@ -13,9 +13,8 @@ client.registry
 	.registerDefaultCommands()
 	.registerGroup('gif','Gif')
 	.registerGroup('music','Music')
-	.registerGroup('brawlstar','BrawlStar')
-	.registerGroup('league_of_legend','League Of Legend')
 	.registerGroup('info','Information')
+	.registerGroup('translate','Translate')
 	.registerGroup('minecraft','Minecraft')
 	.registerCommandsIn(path.join(__dirname, 'commands'))
 
